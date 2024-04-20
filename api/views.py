@@ -23,14 +23,12 @@ def attendace_create(request):
         worker_id = request.data.get('worker')
         last_attendance = models.Attendance.objects.filter(worker=worker_id).order_by('-id').first()
         if not last_attendance or last_attendance.gone_time:
-            # Avvalgi obyekt mavjud emas yoki gone_time qiymati mavjud
             models.Attendance.objects.create(
                 worker_id=worker_id,
                 come_time=timezone.now(),
                 gone_time=None
             )
         else:
-            # Avvalgi obyekt mavjud va gone_time qiymati mavjud
             if last_attendance.gone_time is None:
                 last_attendance.gone_time = timezone.now()
                 last_attendance.save()
