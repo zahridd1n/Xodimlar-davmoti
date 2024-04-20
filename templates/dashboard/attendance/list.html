@@ -1,0 +1,170 @@
+{% extends 'dashboard/base.html' %}
+{% block content %}
+<div class="content-page">
+    <div class="content">
+
+        <!-- Start Content-->
+        <div class="container-fluid">
+
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box">
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">Hyper</a></li>
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">Davomat</a></li>
+                                <li class="breadcrumb-item active">Davomatlar ro'yxati</li>
+                            </ol>
+                        </div>
+                        <h4 class="page-title">Davomat ro'yxati</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row mb-2">
+                                <div class="col-sm-5">
+                                    <a href="{% url 'dashboard:worker_list' %}" class="btn btn-info mb-2"><i class="mdi mdi-note me-2"></i> Xodimlar</a>
+                                </div>
+                                <div class="col-sm-7">
+                                    <div class="text-sm-end">
+                                        <a type="button" class="btn btn-success mb-2 me-1" data-bs-toggle="modal" data-bs-target="#filltermodal"><i class="mdi mdi-cog"></i>Filterlash</a>
+                                        <button type="button" class="btn btn-light mb-2 me-1">Import</button>
+                                        <button type="button" class="btn btn-light mb-2">Export</button>
+                                    </div>
+                                </div><!-- end col-->
+                            </div>
+    
+                            <div class="table-responsive">
+                                <table class="table table-centered table-striped dt-responsive nowrap w-100" id="products-datatable">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 20px;">
+                                                <div class="form-check">
+                                                    <input type="checkbox" class="form-check-input" id="customCheck1">
+                                                    <label class="form-check-label" for="customCheck1">&nbsp;</label>
+                                                </div>
+                                            </th>
+                                            <th><b>ID</b></th>
+                                            <th>Xodim ID</th>
+                                            <th>Xodim</th>
+                                            <th>Kelgan vaqti</th>
+                                            <th>Ketigan vaqti</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for  at in attendance %}
+                                        <tr>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input type="checkbox" class="form-check-input" id="customCheck2">
+                                                    <label class="form-check-label" for="customCheck2">&nbsp;</label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                 {{ at.id }}
+                                            </td>
+                                             <td>
+                                                 {{ at.worker.id }}
+                                            </td>
+                                            <td class="table-user">
+                                                {% if worker.image %}
+                                                <img src="{{at.worker.image.url}}" alt="table-user" class="me-2 rounded-circle">
+                                                {% endif %}
+                                                <a href="javascript:void(0);" class="text-body fw-semibold">{{at.worker.first_name}}</a>
+                                            </td>
+                                            <td>
+                                                {{at.come_time}}
+                                            </td>
+                                            <td>
+                                                {{at.gone_time}}
+                                            </td>
+                                           
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div> <!-- end card-body-->
+                    </div> <!-- end card-->
+                </div> <!-- end col -->
+            </div>
+            <!-- end row -->
+            
+        </div> <!-- container -->
+
+    </div> <!-- content -->
+    <div class="modal fade" id="filltermodal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myCenterModalLabel">Filterlash</h4>
+                    <form method="get">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div>
+                                <div class="form-group">
+                                    <label for="exampleFormControlSelect1">Xodim</label>
+                                    <select class="form-control" id="exampleFormControlSelect1" name="worker_id">
+                                        <option value="0">Barchasi</option>
+                                        {% for worker in workers %}
+                                        <option value="{{ worker.id }}">{{ worker.first_name }}</option>
+                                        {% endfor %}
+                                    </select>
+
+                                        <h4>Kelgan vaqti:</h4>
+                                        <div class="mb-3">
+                                            <label class="form-label">dan:</label>
+                                            <input type="date"  name="start_date" class="form-control" placeholder="Date and Time">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">gacha</label>
+                                            <input type="date"  name="end_date" class="form-control" placeholder="Date and Time">
+                                        </div>
+                                        
+                                        
+                                        <!-- <label for="min_price">dan:</label>
+                                        <input type="datetime" name="start_time"  id="min_price" class="">
+                                        
+                                        <label for="max_price">gacha:</label>
+                                        <input type="datetime" name="end_time" id="max_price" class="form-control" >-->
+    
+                                          
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-dark" data-bs-dismiss="modal" aria-hidden="true">Qaytish</button>
+                        <button class="btn btn-danger" type="submit">Filterlash</button>
+                    </div>
+                    </form>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <!-- Footer Start -->
+    <footer class="footer">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <script>document.write(new Date().getFullYear())</script> © Hyper - Coderthemes.com
+                </div>
+                <div class="col-md-6">
+                    <div class="text-md-end footer-links d-none d-md-block">
+                        <a href="javascript: void(0);">About</a>
+                        <a href="javascript: void(0);">Support</a>
+                        <a href="javascript: void(0);">Contact Us</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- end Footer -->
+
+</div>
+{% endblock %}

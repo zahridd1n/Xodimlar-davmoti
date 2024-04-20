@@ -1,0 +1,132 @@
+{% extends 'dashboard/base.html' %}
+{% block content %}
+    
+    <div class="content-page">
+                <div class="content">
+
+                    <!-- Start Content-->
+                    <div class="container-fluid">
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box">
+                                    <div class="page-title-right">
+                                        <form class="d-flex">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control form-control-light" id="dash-daterange">
+                                                <span class="input-group-text bg-primary border-primary text-white">
+                                                    <i class="mdi mdi-calendar-range font-13"></i>
+                                                </span>
+                                            </div>
+                                            <a href="javascript: void(0);" class="btn btn-primary ms-2">
+                                                <i class="mdi mdi-autorenew"></i>
+                                            </a>
+                                            <a href="javascript: void(0);" class="btn btn-primary ms-1">
+                                                <i class="mdi mdi-filter-variant"></i>
+                                            </a>
+                                        </form>
+                                    </div>
+                                    <div class="d-flex justify-content-evenly align-items-center">
+                                        <h4 class="page-title" style="display: inline;">Detail</h4>
+                                        <a href="{% url 'dashboard:edit_news' post.id %}" class="btn btn-primary">O`zgartirish</a>
+                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#centermodal">O`chirish</button>
+                                        <div class="modal fade" id="centermodal" tabindex="-1" role="dialog" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title" id="myCenterModalLabel">Serviceni  o`chirmoqchimisiz? </h4>
+                                                        <form method="get" action="{% url 'dashboard:delete_news' post.id %}">
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            
+                                                            <input type="checkbox" class="form-check-input" id="customCheckcolor7" required>
+                                                            <label for="chkb">Ha</label> <br> <br>
+                                                            <button type="button" class="btn btn-dark" data-bs-dismiss="modal" aria-hidden="true">Qaytish</button>
+                                                            <button class="btn btn-danger" type="submit">O`chirish</button>
+                                                        </div>
+                                                        </form>
+                                                </div><!-- /.modal-content -->
+                                            </div><!-- /.modal-dialog -->
+                                        </div><!-- /.modal -->
+    
+                                                
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end row -->
+                        <div class="row">
+                            <div class="col-2"></div>
+                            <div class="col-8">
+                                <div class="card-body">
+                                    <h4 class="header-title mb-3">Category haqida batafsil</h4>
+        
+                                    <div class="table-responsive">
+                                        <table class="table mb-0">
+                                        
+                                            <tbody>
+                                                <tr>
+                                                    <td><b>ID :</b></td>
+                                                    <td>{{post.id}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Sarlavha :</b></td>
+                                                    <td>{{post.title}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Tana qism:</b></td>
+                                                    <td>{{post.body}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Mualif:</b></td>
+                                                    <td>{{post.author}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Kategoria :</b></td>
+                                                    <td>{{post.category.name}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Region :</b></td>
+                                                    <td>{{post.region.name}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Banner:</b></td>
+                                                    <td><img src="{{post.banner.url}}" class="img-fluid rounded" width="250" alt=""></td>
+                                                </tr>
+                                        
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!-- end table-responsive -->
+        
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- container -->
+
+                </div>
+                <!-- content -->
+
+                <!-- Footer Start -->
+                <footer class="footer">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <script>document.write(new Date().getFullYear())</script> © Hyper - Coderthemes.com
+                            </div>
+                            <div class="col-md-6">
+                                <div class="text-md-end footer-links d-none d-md-block">
+                                    <a href="javascript: void(0);">About</a>
+                                    <a href="javascript: void(0);">Support</a>
+                                    <a href="javascript: void(0);">Contact Us</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+                <!-- end Footer -->
+
+            </div>
+{% endblock %}
